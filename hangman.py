@@ -5,9 +5,9 @@ class Hangman:
     """ Starts the game and runs it."""
 
     word: str
-    log_inputs: set[str] = []
-    correct_inputs: set[str] = []
-    false_inputs: set[str] = []
+    log_inputs:set[str] = set()
+    correct_inputs: set[str] = set()
+    false_inputs: set[str] = set()
     game_ended: bool = False
     win_condition: bool = False
     tries_remaining: int = 9
@@ -20,13 +20,13 @@ class Hangman:
 
     def register_user_input(self, input) -> None:
 
-        self.log_inputs.append(input)
+        self.log_inputs.add(input)
 
         if input in self.word:
-            self.correct_inputs.append(input)
-        else:
+            self.correct_inputs.add(input)
+        elif input not in self.false_inputs:
             self.tries_remaining -= 1
-            self.false_inputs.append(input)
+            self.false_inputs.add(input)
 
     def check_game_status(self) -> bool:
 
